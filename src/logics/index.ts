@@ -2,7 +2,8 @@ export const convertBulletPointsToHyphen = (text: string) => text.replaceAll(/[*
 
 export const convertBulletPointsWithIndent = (text: string) => {
   const headText = text.match(/^[\s\S]*?[-|*|+][\s\S]{1}/);
-  if (!headText) {
+  const isNumberPoints = text.match(/^[\s\S]*?\d\.[\s\S]{1}/);
+  if (!headText || isNumberPoints) {
     return text;
   }
   const convertTabSpace = headText[0].replace(/\t-/g, '-').replaceAll(/\t/g, '-');
@@ -13,7 +14,17 @@ export const convertBulletPointsWithIndent = (text: string) => {
 };
 
 export const convertHeadline = (multiLineText: string) => multiLineText.replaceAll('#', '*');
-export const convertNumberPoints = (text: string) => text.replace(/^\d\./i, '+');
+export const convertNumberPoints = (text: string) => {
+  const headText = text.match(/^[\s\S]*?\d\.[\s\S]{1}/);
+  if (!headText) {
+    return text;
+  }
+  const convertTabSpace = headText[0].replace(/\t-/g, '+').replaceAll(/\t/g, '+');
+  const convertHalfWidthSpace = convertTabSpace.replace(/^\s{4}/, '+').replaceAll('  ', '+');
+  const convertHeadNumber = convertHalfWidthSpace.replaceAll(/\d\./g, '+');
+  const replaced = convertHeadNumber;
+  return text.replace(headText[0], replaced);
+};
 
 export const convertBacklogNotation = (text: string) => {
   const converted = text

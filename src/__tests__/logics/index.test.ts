@@ -58,21 +58,21 @@ describe('ネストあり箇条書き', () => {
     ['      * [ ] test', '--- [ ] test'],
     ['      * [ ] test', '--- [ ] test'],
     ['        * [ ] test', '---- [ ] test'],
-    // ['+ test', '- test'],
-    // ['    + test', '-- test'],
-    // ['    + test', '-- test'],
-    // ['      + test', '--- test'],
-    // ['      + test', '--- test'],
-    // ['        + test', '---- test'],
-    // ['        + test', '---- test'],
-    // ['+ [ ] test', '- [ ] test'],
-    // ['+ [x] test', '- [x] test'],
-    // ['    + [ ] test', '-- [ ] test'],
-    // ['    + [ ] test', '-- [ ] test'],
-    // ['      + [ ] test', '--- [ ] test'],
-    // ['      + [ ] test', '--- [ ] test'],
-    // ['        + [ ] test', '---- [ ] test'],
-    // ['        + [ ] test', '---- [ ] test'],
+    ['+ test', '- test'],
+    ['    + test', '-- test'],
+    ['    + test', '-- test'],
+    ['      + test', '--- test'],
+    ['      + test', '--- test'],
+    ['        + test', '---- test'],
+    ['        + test', '---- test'],
+    ['+ [ ] test', '- [ ] test'],
+    ['+ [x] test', '- [x] test'],
+    ['    + [ ] test', '-- [ ] test'],
+    ['    + [ ] test', '-- [ ] test'],
+    ['      + [ ] test', '--- [ ] test'],
+    ['      + [ ] test', '--- [ ] test'],
+    ['        + [ ] test', '---- [ ] test'],
+    ['        + [ ] test', '---- [ ] test'],
     ['- test-hoge', '- test-hoge'],
     ['    - test-hoge', '-- test-hoge'],
     ['    - test - hoge', '-- test - hoge'],
@@ -107,6 +107,12 @@ describe('番号付きリスト', () => {
   it.each([
     ['1. テスト', '+ テスト'],
     ['1. test', '+ test'],
+    ['    1. test', '++ test'],
+    ['    1. test', '++ test'],
+    ['      1. test', '+++ test'],
+    ['      1. test', '+++ test'],
+    ['        1. test', '++++ test'],
+    ['        1. test', '++++ test'],
   ])('convert %s to %s', (input, converted) => {
     expect(convertNumberPoints(input)).toBe(converted);
   });
@@ -152,6 +158,8 @@ describe('変換', () => {
 1. あいうえお
 2. かきくけこ
 3. さしすせそ
+    1. hoge-10h
+    2. fuga - 50m
 `;
   const output = `
 * 見出し1
@@ -192,6 +200,8 @@ describe('変換', () => {
 + あいうえお
 + かきくけこ
 + さしすせそ
+++ hoge-10h
+++ fuga - 50m
 `;
   it.each([[input, output]])('convert %s to %s', (input, converted) => {
     expect(convertBacklogNotation(input)).toBe(converted);
