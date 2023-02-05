@@ -1,0 +1,12 @@
+name: Test
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: SetUp
+        run: 'npm i -g yarn && yarn'
+      - name: Run Test
+        run: 'yarn test:ci'
