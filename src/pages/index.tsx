@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { ChangeEvent, FC, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, FC, useCallback, useEffect, useMemo, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { Grid, IconButton, InputAdornment, OutlinedInput, Typography } from '@mui/material';
 import { convertBacklogNotation } from 'logics';
@@ -26,10 +26,10 @@ const Index: FC = () => {
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value);
   };
-
   useEffect(() => setConverted(convert), [convert]);
-
-  const [showPassword] = useState(false);
+  const handleCopy = useCallback(() => {
+    navigator.clipboard.writeText(converted);
+  }, [converted]);
   return (
     <Grid container spacing={2} sx={{ marginY: 2 }}>
       <Grid item xs={6}>
@@ -44,18 +44,9 @@ const Index: FC = () => {
         />
       </Grid>
       <Grid item xs={6}>
-        {/* <TextField
-          id="outlined-multiline-static"
-          label="Multiline"
-          multiline
-          rows={20}
-          defaultValue={converted}
-          value={converted}
-          sx={{ width: '100%' }}
-        /> */}
         <OutlinedInput
           id="outlined-adornment-password"
-          type={showPassword ? 'text' : 'password'}
+          type="text"
           multiline
           rows={20}
           defaultValue={converted}
@@ -63,7 +54,12 @@ const Index: FC = () => {
           sx={{ width: '100%', alignItems: 'flex-start' }}
           endAdornment={
             <InputAdornment position="end" sx={{ marginTop: 1.5, marginRight: 1 }}>
-              <IconButton aria-label="toggle password visibility" onClick={() => {}} onMouseDown={() => {}} edge="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={handleCopy}
+                onMouseDown={() => {}}
+                edge="end"
+              >
                 <FileCopyOutlined />
               </IconButton>
             </InputAdornment>
