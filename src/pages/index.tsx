@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { ChangeEvent, FC, useEffect, useMemo, useState } from 'react';
 import TextField from '@mui/material/TextField';
-import { Grid } from '@mui/material';
+import { Grid, IconButton, InputAdornment, OutlinedInput, Typography } from '@mui/material';
 import { convertBacklogNotation } from 'logics';
+import { FileCopyOutlined } from '@mui/icons-material';
 
 const Index: FC = () => {
   const [input, setInput] = useState<string>(`# 見出し1
@@ -27,12 +29,13 @@ const Index: FC = () => {
 
   useEffect(() => setConverted(convert), [convert]);
 
+  const [showPassword] = useState(false);
   return (
     <Grid container spacing={2} sx={{ marginY: 2 }}>
       <Grid item xs={6}>
         <TextField
           id="outlined-multiline-static"
-          label="Multiline"
+          label="Markdown"
           multiline
           rows={20}
           defaultValue={input}
@@ -41,7 +44,7 @@ const Index: FC = () => {
         />
       </Grid>
       <Grid item xs={6}>
-        <TextField
+        {/* <TextField
           id="outlined-multiline-static"
           label="Multiline"
           multiline
@@ -49,7 +52,27 @@ const Index: FC = () => {
           defaultValue={converted}
           value={converted}
           sx={{ width: '100%' }}
+        /> */}
+        <OutlinedInput
+          id="outlined-adornment-password"
+          type={showPassword ? 'text' : 'password'}
+          multiline
+          rows={20}
+          defaultValue={converted}
+          value={converted}
+          sx={{ width: '100%', alignItems: 'flex-start' }}
+          endAdornment={
+            <InputAdornment position="end" sx={{ marginTop: 1.5, marginRight: 1 }}>
+              <IconButton aria-label="toggle password visibility" onClick={() => {}} onMouseDown={() => {}} edge="end">
+                <FileCopyOutlined />
+              </IconButton>
+            </InputAdornment>
+          }
+          label="Password"
         />
+      </Grid>
+      <Grid item xs={6}>
+        <Typography>README</Typography>
       </Grid>
     </Grid>
   );
