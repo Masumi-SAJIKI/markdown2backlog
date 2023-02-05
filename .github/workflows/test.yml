@@ -1,6 +1,8 @@
 name: Test
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - 'feature/*'
 jobs:
   test:
     runs-on: ubuntu-latest
