@@ -1,5 +1,5 @@
 cd src
-mkdir api
+#mkdir api
 mkdir repositories
 mkdir usecase
 mkdir models
@@ -15,9 +15,9 @@ mkdir api
 mkdir repositories
 mkdir usecase
 mkdir models
-# mkdir store
+mkdir store
 mkdir components
 mkdir pages
-# mkdir route
+mkdir route
 # mkdir theme
-# mkdir globalstates
+mkdir globalstates
