@@ -1,10 +1,4 @@
-import {
-  convertBacklogNotation,
-  convertBulletPointsWithIndent,
-  convertBulletPointsToHyphen,
-  convertHeadline,
-  convertNumberPoints,
-} from 'logics';
+import { convertBacklogNotation, convertBulletPointsWithIndent, convertHeadline, convertNumberPoints } from 'logics';
 
 describe('見出し', () => {
   it.each([
@@ -27,7 +21,7 @@ describe('見出し', () => {
   });
 });
 
-describe('ネストあり箇条書き', () => {
+describe('箇条書き', () => {
   it.each([
     ['* テスト', '- テスト'],
     ['- test', '- test'],
@@ -76,30 +70,20 @@ describe('ネストあり箇条書き', () => {
     ['- test-hoge', '- test-hoge'],
     ['    - test-hoge', '-- test-hoge'],
     ['    - test - hoge', '-- test - hoge'],
+    ['    - test-2.5h', '-- test-2.5h'],
+    ['    - test - 2.5h', '-- test - 2.5h'],
+    ['    - test 2.5h', '-- test 2.5h'],
+    ['    - test 2h', '-- test 2h'],
     ['# テスト', '# テスト'],
     ['# テスト-hoge', '# テスト-hoge'],
     ['# テスト - hoge', '# テスト - hoge'],
     ['** test **', '** test **'],
     ['**test**', '**test**'],
     ['**test**', '**test**'],
+    ['1. テスト', '1. テスト'],
+    ['    1. test', '    1. test'],
   ])('convert %s to %s', (input, converted) => {
     expect(convertBulletPointsWithIndent(input)).toBe(converted);
-  });
-});
-
-describe('箇条書き', () => {
-  it.each([
-    ['- test', '- test'],
-    ['* test', '- test'],
-    ['+ test', '- test'],
-    ['- [ ] test', '- [ ] test'],
-    ['- [x] test', '- [x] test'],
-    ['* [ ] test', '- [ ] test'],
-    ['* [x] test', '- [x] test'],
-    ['+ [ ] test', '- [ ] test'],
-    ['+ [x] test', '- [x] test'],
-  ])('convert %s to %s', (input, converted) => {
-    expect(convertBulletPointsToHyphen(input)).toBe(converted);
   });
 });
 
@@ -107,6 +91,8 @@ describe('番号付きリスト', () => {
   it.each([
     ['1. テスト', '+ テスト'],
     ['1. test', '+ test'],
+    ['10. test', '+ test'],
+    ['100. test', '+ test'],
     ['    1. test', '++ test'],
     ['    1. test', '++ test'],
     ['      1. test', '+++ test'],
