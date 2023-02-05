@@ -51,7 +51,9 @@ const Index: FC = () => {
         <Link href="https://github.com/Masumi-SAJIKI/markdown2backlog" target="_blank">
           <img src={GitHubIcon} style={{ width: 28 }} />
         </Link>
-        <Typography>プレースホルダーに記載してあるMarkdown記法をBacklog記法に変換できます。</Typography>
+        <Typography>
+          左のテキストフィールドにMarkdown記法の文章を記入すると右側にBacklog記法で変換したものが表示されます。
+        </Typography>
       </Grid>
     </Grid>
   );
