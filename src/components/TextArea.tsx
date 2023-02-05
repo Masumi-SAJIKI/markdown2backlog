@@ -19,7 +19,7 @@ export const TextArea: FC<Props> = ({ id, label, value, icon, onClickIcon, onCha
         type="text"
         multiline
         label={label}
-        rows={20}
+        rows={25}
         value={value}
         onChange={onChange}
         sx={{ width: '100%', alignItems: 'flex-start' }}

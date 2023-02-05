@@ -20,7 +20,21 @@ const Index: FC = () => {
   useEffect(() => setConverted(convert), [convert]);
 
   return (
-    <Grid container spacing={2} sx={{ marginY: 2 }}>
+    <Grid container spacing={2} sx={{ marginY: 1 }}>
+      <Grid item xs={12} mb={1}>
+        <Typography variant="h5" component="span">
+          Markdown 2 Backlog
+        </Typography>
+        <Typography component="span" sx={{ mx: 1 }}>
+          {process.env.npm_package_version || 'v0.1.0'}
+        </Typography>
+        <Link href="https://github.com/Masumi-SAJIKI/markdown2backlog" target="_blank">
+          <img src={GitHubIcon} style={{ width: 28 }} />
+        </Link>
+        <Typography>
+          左のテキストフィールドにMarkdown記法の文章を記入すると右側にBacklog記法で変換したものが表示されます。
+        </Typography>
+      </Grid>
       <Grid item xs={6}>
         <TextArea
           id="markdown"
@@ -40,20 +54,6 @@ const Index: FC = () => {
           onClickIcon={handleCopy}
           onChange={handleBacklogChange}
         />
-      </Grid>
-      <Grid item xs={12}>
-        <Typography variant="h4" component="span">
-          Markdown 2 Backlog
-        </Typography>
-        <Typography variant="h6" component="span" sx={{ mx: 1 }}>
-          {process.env.npm_package_version || 'v0.1.0'}
-        </Typography>
-        <Link href="https://github.com/Masumi-SAJIKI/markdown2backlog" target="_blank">
-          <img src={GitHubIcon} style={{ width: 28 }} />
-        </Link>
-        <Typography>
-          左のテキストフィールドにMarkdown記法の文章を記入すると右側にBacklog記法で変換したものが表示されます。
-        </Typography>
       </Grid>
     </Grid>
   );

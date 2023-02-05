@@ -5,12 +5,11 @@ export const initialInput = `# 見出し1
 - [ ] hoge
     - [ ] fuga
       - [ ] fuga2
-        - [ ] fuga3
 		
 ### 見出し3
 1. あいうえお
+    1. あ
+		  1. い
 2. かきくけこ
 		- hoge
-		- fuga
-		- piyo
 3. さしすせそ`;
