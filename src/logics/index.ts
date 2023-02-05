@@ -1,18 +1,29 @@
-export const convertHeadline = (text: string) => text.replaceAll('#', '*');
+export const convertBulletPointsToHyphen = (text: string) => text.replaceAll(/[*|+] /g, '- ');
+
+export const convertBulletPointsWithIndent = (text: string) => {
+  const headText = text.match(/^[\s\S]*?[-|*|+][\s\S]{1}/);
+  if (!headText) {
+    return text;
+  }
+  const convertTabSpace = headText[0].replace(/\t-/g, '-').replaceAll(/\t/g, '-');
+  const convertHalfWidthSpace = convertTabSpace.replace(/^\s{4}/, '-').replaceAll('  ', '-');
+  const convertHeadBulletPoints = convertHalfWidthSpace.replaceAll(/[*|+] /g, '- ');
+  const replaced = convertHeadBulletPoints;
+  return text.replace(headText[0], replaced);
+};
+
+export const convertHeadline = (multiLineText: string) => multiLineText.replaceAll('#', '*');
+export const convertNumberPoints = (text: string) => text.replace(/^\d\./i, '+');
+
 export const convertBacklogNotation = (text: string) => {
-  const aa = convertHeadline(text.replaceAll(/[*|+] /g, '- '));
-  const bb = aa
+  const converted = text
     .split(/\n/)
     .map((t) => {
-      const x = t.match(/^[\s\S]+?-[\s\S]/);
-      const x2 = t.match(/^[\s\S]+?-/);
-      if (x && x2) {
-        const x3 = x[0].replace('-', '').replace(' ', '').replaceAll('  ', '-').replaceAll(/\t/g, '-');
-        return t.replace(x2[0], x3);
-      }
-      return t.replace(/^\d\./i, '+');
+      let text = t;
+      text = convertBulletPointsWithIndent(text);
+      text = convertNumberPoints(text);
+      return text;
     })
     .join('\n');
-  return bb;
+  return convertHeadline(converted);
 };
-// export const convertBold = (text: string) => text.match(/\*\**.\*\*/i)?.map((text) => text.replace('**', '"'));
